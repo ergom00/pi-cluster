@@ -2,9 +2,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: linkding
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
+  ingressClassName: traefik
+  tls:
+    - secretName: linkding-tls
+      hosts:
+        - linkding.staging.kubeport.dev
   rules:
-  - host: lds.kubeport.dev
+  - host: linkding.staging.kubeport.dev
     http:
       paths:
       - pathType: Prefix
