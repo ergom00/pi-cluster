@@ -3,11 +3,11 @@ kind: Ingress
 metadata:
   name: linkding
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: traefik
   tls:
-    - secretName: linkding-tls
+    - secretName: linkding-prod-tls
       hosts:
         - linkding.staging.kubeport.dev
   rules:
