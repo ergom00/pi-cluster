@@ -3,3 +3,9 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ../../base/kube-prometheus-stack
+
+patches:
+  - path: values-patch.yaml
+    target:
+      kind: HelmRelease
+      name: kube-prometheus-stack

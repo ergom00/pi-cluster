@@ -1,0 +1,23 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  values:
+    grafana:
+      admin:
+        existingSecret: "grafana-admin-credentials"
+      grafana.ini:
+        server:
+          root_url: https://grafana.staging.kubeport.dev
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+          - grafana.staging.kubeport.dev
+        tls:
+          - secretName: grafana-prod-tls
+            hosts:
+              - grafana.staging.kubeport.dev
