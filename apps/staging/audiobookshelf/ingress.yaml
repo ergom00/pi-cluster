@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: audiobooks
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - secretName: audiobooks-prod-tls
+      hosts:
+        - audiobooks.staging.kubeport.dev
+  rules:
+  - host: audiobooks.staging.kubeport.dev
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: audiobookshelf
+            port:
+              number: 3005
